@@ -1,6 +1,7 @@
 #since constraints cause problems, drop tables first, working backward
-DROP TABLE IF EXISTS winter2022_rss_categories; 
 DROP TABLE IF EXISTS winter2022_rss_news;
+DROP TABLE IF EXISTS winter2022_rss_categories; 
+
 
 
 #all tables must be of type InnoDB to do transactions, foreign key constraints
