@@ -1,16 +1,4 @@
 <?php
-/**
- * index.php along with survey_view.php allows us to view surveys
- * 
- * @package SurveySez
- * @author Chih Wen Wang <yaman0923@gmail.com>
- * @version 3.02 2022/02/15
- * @link http://www.example.com/
- * @license https://www.apache.org/licenses/LICENSE-2.0
- * @see survey_view.php
- * @see Pager.php 
- * @todo none
- */
 
 # '../' works for a sub-folder.  use './' for the root  
 require '../inc_0700/config_inc.php'; #provides configuration, pathing, error handling, db credentials 
@@ -31,8 +19,8 @@ get_header(); #defaults to theme header or header_inc.php
 ?>
 <h3 align="center">News List</h3>
 
-<div align="left"><a href="import.php">Import News</a>&nbsp;&nbsp;&nbsp; <a href="delete.php">Delete Imported News</a></div>
-<br><br>
+<div align="left"><a href="admin.php">Manager Page</a></div>
+<br>
 
 <div class="panel panel-default">
     <div class="panel-heading">
