@@ -31,7 +31,8 @@ get_header(); #defaults to theme header or header_inc.php
             echo '
                 <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">'.$categoryName.' &nbsp;<a href="edit-category.php?CategoryID="><img src="images/edit.ico" alt="edit"></a></h3>
+                    <h3 class="panel-title">'.$categoryName.' &nbsp;<a href="edit-category.php?CategoryID='.(int)$row['CategoryID'].'"><img src="images/edit.ico" alt="edit"></a></h3>
+
                 </div>
                 <div class="panel-body">
                 <ul>';  
