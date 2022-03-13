@@ -43,7 +43,8 @@ get_header(); #defaults to theme header or header_inc.php
                     while($rowfeeds = mysqli_fetch_assoc($resultfeed)){
                         $myId = $rowfeeds['SubCategory'];
                         $categoryID = $rowfeeds['CategoryID'];
-                        echo '<li><a href="edit-feeds.php?CategoryName='.$categoryName.'&FeedsID='.(int)$rowfeeds['FeedsID'].'">'.stripslashes($rowfeeds['SubCategory']).' &nbsp; <img src="images/edit.ico" alt="edit"></a></li>';
+                        echo '<li><a href="edit-feeds.php?FeedsID='.(int)$rowfeeds['FeedsID'].'">'.stripslashes($rowfeeds['SubCategory']).' &nbsp; <img src="images/edit.ico" alt="edit"></a></li>';
+
                     } 
                         
                 }
