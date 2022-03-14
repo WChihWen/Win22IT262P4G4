@@ -14,12 +14,49 @@ $config->metaKeywords = 'RSS-Manager page,PHP,'. $config->metaKeywords;
 $config->loadhead .= '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">';
 
 
+
+$sql = 'SELECT CategoryID, CategoryName FROM winter2022_rss_category';
+$result = mysqli_query(IDB::conn(),$sql) or die(trigger_error(mysqli_error(IDB::conn()), E_USER_ERROR));
+
+
 get_header(); #defaults to theme header or header_inc.php
 ?>
-<h3 align="center">Manager Page</h3>
+<h3 align="center">Manager Page</h3>    
+    
+<?php
+    
+    if(mysqli_num_rows($result) > 0){
+        while($row = mysqli_fetch_assoc($result)){
+            $categoryName = stripslashes($row['CategoryName']);
+            echo '
+                <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">'.$categoryName.'&nbsp;<a href="edit-category.php?CategoryID='.(int)$row['CategoryID'].'"><img src="images/edit.ico" alt="edit"></a></h3>
+                </div>
+                <div class="panel-body">
+                <ul>';  
 
+                $sqlfeed = 'SELECT * FROM winter2022_rss_feeds WHERE CategoryID='.(int)$row['CategoryID'];
+                $resultfeed = mysqli_query(IDB::conn(),$sqlfeed) or die(trigger_error(mysqli_error(IDB::conn()), E_USER_ERROR));
 
-<div class="panel panel-default">
+                if(mysqli_num_rows($resultfeed) > 0){
+                    while($rowfeeds = mysqli_fetch_assoc($resultfeed)){
+                        $myId = $rowfeeds['SubCategory'];
+                        $categoryID = $rowfeeds['CategoryID'];
+                        echo '<li><a href="edit-feeds.php?FeedsID='.(int)$rowfeeds['FeedsID'].'">'.stripslashes($rowfeeds['SubCategory']).' &nbsp; <img src="images/edit.ico" alt="edit"></a></li>';
+                    } 
+                        
+                }
+            echo '
+                    </ul>  
+                </div>
+            </div>	
+            ';
+        }
+    }
+?>
+
+<!--<div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Category1  &nbsp;<a href="#"><img src="images/edit.ico" alt="edit"></a></h3>
     </div>
@@ -30,32 +67,7 @@ get_header(); #defaults to theme header or header_inc.php
             <li>SubCategory3 &nbsp;<a href="#"><img src="images/edit.ico" alt="edit"></a></li>
         </ul>  
     </div>
-</div>			
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Category2 &nbsp;<a href="#"><img src="images/edit.ico" alt="edit"></a></h3>
-    </div>
-    <div class="panel-body">
-        <ul>       
-            <li>SubCategory1 &nbsp;<a href="#"><img src="images/edit.ico" alt="edit"></a></li>
-            <li>SubCategory2 &nbsp;<a href="#"><img src="images/edit.ico" alt="edit"></a></li>
-            <li>SubCategory3 &nbsp;<a href="#"><img src="images/edit.ico" alt="edit"></a></li>  
-        </ul>  
-    </div>
-</div>		
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Category3 &nbsp;<a href="#"><img src="images/edit.ico" alt="edit"></a></h3>
-    </div>
-    <div class="panel-body">
-        <ul>   
-            <li>SubCategory1 &nbsp;<a href="#"><img src="images/edit.ico" alt="edit"></a></li>
-            <li>SubCategory2 &nbsp;<a href="#"><img src="images/edit.ico" alt="edit"></a></li>
-            <li>SubCategory3 &nbsp;<a href="#"><img src="images/edit.ico" alt="edit"></a></li>        
-        </ul>  
-    </div>
-</div>		
+</div>				-->
 
 <?php
 
