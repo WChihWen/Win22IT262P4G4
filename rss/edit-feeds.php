@@ -62,27 +62,23 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
     if($all_set == true){
         // update feeds
-
-        $sql = 'UPDATE winter2022_rss_feeds  
-                SET SubCategory="'.$SubCategory.'", FeedsFrom ="'.$FeedsFrom.'",FeedsUrl="'.$FeedsUrl.'" 
+        $mydate = date('Y-m-d H:i:s');
+        $sql = 'UPDATE winter2022_rss_feeds SET SubCategory="'.$SubCategory.'", FeedsFrom ="'.$FeedsFrom.'",FeedsUrl="'.$FeedsUrl.'",DateAdded="'.$mydate.'" 
                 WHERE FeedsID='.$FeedsID ;
 
         if (IDB::conn()->query($sql) === TRUE) {                       
-            $print .='Update </b> successfully.<br>';           
+            //$print .='Update </b> successfully.<br>';           
 
-            $print .='Go back <a href="admin.php"><b>Manager Page</b></a>';
+            //$print .='Go back <a href="admin.php"><b>Manager Page</b></a>';
             header('Location: admin.php');
             
         }else{    
             $sql_err= "SQL_error: " . $sql . "<br><br>";
         }  
     }
-
-
+    @mysqli_free_result($result);
 }else{
-// load data
-  
-
+// load data 
     if ( isset($_GET["FeedsID"])){        
         $FeedsID =(int)$_GET["FeedsID"];       
     } else {
@@ -113,7 +109,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 <br><br>
 <form  style="width:500px;" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
     <fieldset>
-        <label>Category: Category1</label>
+        <label>Category: <?php echo $CategoryName;?></label>
         <br> <br>
         <label>SubCategory:</label>
         <input type="text" name="SubCategory" value="<?php echo $SubCategory;?>"> 
