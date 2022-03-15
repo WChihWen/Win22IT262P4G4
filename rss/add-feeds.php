@@ -18,7 +18,7 @@ get_header(); #defaults to theme header or header_inc.php
 
 
 $CategoryName = "";
-$FeedsID = 0;
+
 $CategoryID = 0;
 $SubCategory="";
 $FeedsFrom="";
@@ -34,8 +34,7 @@ $print="";
 $sql_err="";
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
-// update data    
-    $FeedsID = (int)$_POST['FeedsID'];
+    // insert data    
     $CategoryID = (int)$_POST['CategoryID'];
 
     if($_POST['SubCategory'] == NULL){
@@ -59,49 +58,27 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $FeedsUrl = $_POST['FeedsUrl'];
     }
 
-
     if($all_set == true){
-        // update feeds
+        // insert feeds
+        //FeedsID	CategoryID	SubCategory	FeedsFrom	FeedsUrl	DateAdded
         $mydate = date('Y-m-d H:i:s');
-        $sql = 'UPDATE winter2022_rss_feeds SET SubCategory="'.$SubCategory.'", FeedsFrom ="'.$FeedsFrom.'",FeedsUrl="'.$FeedsUrl.'",DateAdded="'.$mydate.'" 
-                WHERE FeedsID='.$FeedsID ;
+        $sql = "INSERT INTO winter2022_rss_feeds VALUES (NULL,".$CategoryID.",'".$SubCategory."','".$FeedsFrom."','".$FeedsUrl."','".$mydate."');";
 
-        if (IDB::conn()->query($sql) === TRUE) {                       
-            //$print .='Update </b> successfully.<br>';           
-
-            //$print .='Go back <a href="admin.php"><b>Manager Page</b></a>';
-            header('Location: admin.php');
-            
+        if (IDB::conn()->query($sql) === TRUE) {            
+            header('Location: admin.php');            
         }else{    
             $sql_err= "SQL_error: " . $sql . "<br><br>";
         }  
     }
-    @mysqli_free_result($result); // this will free memory to use in the future.
+    //@mysqli_free_result($result);
 }else{
-// load data 
-    if ( isset($_GET["FeedsID"])){        
-        $FeedsID =(int)$_GET["FeedsID"];       
+    // load data 
+    if (isset($_GET["CategoryID"]) && isset($_GET["CategoryName"])){        
+        $CategoryID =(int)$_GET["CategoryID"];   
+        $CategoryName =$_GET["CategoryName"];        
     } else {
         header('Location: admin.php');
     }
-    //Load Feeds data
-    $sql = 'select a.CategoryName,b.* from winter2022_rss_feeds b
-            inner join winter2022_rss_category a on a.CategoryID = b.CategoryID
-            where b.FeedsID ='.$FeedsID ;
-
-    $result = mysqli_query(IDB::conn(),$sql) or die(trigger_error(mysqli_error(IDB::conn()), E_USER_ERROR));
-    if(mysqli_num_rows($result) > 0){
-        $row = mysqli_fetch_assoc($result);   
-        $CategoryName = stripslashes($row['CategoryName']);
-        $SubCategory = stripslashes($row['SubCategory']);
-        $FeedsFrom = stripslashes($row['FeedsFrom']);
-        $FeedsUrl = stripslashes($row['FeedsUrl']);
-        $CategoryID =(int)($row['CategoryID']);
-    }else{
-        // if there is no feedsID, go back admin
-        header('Location: admin.php');
-    }
-    @mysqli_free_result($result); // this will free memory to use in the future.
 }
 
 ?>
@@ -128,12 +105,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         <span class="error"><?php echo $FeedsUrl_Err;?></span>
         <br> <br>
         <div >            
-            <input type="submit"  value="Update">
+            <input type="submit"  value="New">
             <a href="admin.php" class="button">Cancel</a>  
         </div> 
 
         <input type="hidden" id="CategoryID" name="CategoryID" value="<?php echo $CategoryID;?>">
-        <input type="hidden" id="FeedsID" name="FeedsID" value="<?php echo $FeedsID;?>">
     </fieldset>
 </form>
 <br>
