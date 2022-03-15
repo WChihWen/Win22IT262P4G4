@@ -70,7 +70,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             $sql_err= "SQL_error: " . $sql . "<br><br>";
         }  
     }
-    //@mysqli_free_result($result);
+    @mysqli_free_result($result);
 }else{
     // load data 
     if (isset($_GET["CategoryID"]) && isset($_GET["CategoryName"])){        
