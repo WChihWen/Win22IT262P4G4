@@ -22,7 +22,15 @@ $result = mysqli_query(IDB::conn(),$sql) or die(trigger_error(mysqli_error(IDB::
 get_header(); #defaults to theme header or header_inc.php
 ?>
 <h3 align="center">Manager Page</h3>    
-    
+<div align="left">
+    Click <img src="images/add.ico" alt="add"> to add SubCategory.
+    <br>
+    Click <img src="images/edit.ico" alt="edit"> to edit Category or SubCategory.
+</div>  
+<br>
+<div align="left"><a href="add-category.php">New Category</a></div>  
+<br>
+ 
 <?php
     
     if(mysqli_num_rows($result) > 0){
@@ -31,7 +39,12 @@ get_header(); #defaults to theme header or header_inc.php
             echo '
                 <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">'.$categoryName.'&nbsp;<a href="edit-category.php?CategoryID='.(int)$row['CategoryID'].'"><img src="images/edit.ico" alt="edit"></a></h3>
+                    <h3 class="panel-title">'.$categoryName.' &nbsp;
+                        <a href="edit-category.php?CategoryID='.(int)$row['CategoryID'].'"><img src="images/edit.ico" alt="edit"></a>
+                        <a href="add-feeds.php?CategoryID='.(int)$row['CategoryID'].'&CategoryName='.$row['CategoryName'].'"><img src="images/add.ico" alt="add"></a>
+
+
+                    </h3>
                 </div>
                 <div class="panel-body">
                 <ul>';  

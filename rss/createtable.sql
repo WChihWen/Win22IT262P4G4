@@ -10,7 +10,7 @@ CategoryName VARCHAR(100) DEFAULT '',
 PRIMARY KEY (CategoryID)
 )ENGINE=INNODB; 
 
-INSERT INTO winter2022_rss_category VALUES (NULL,'Category1');
+INSERT INTO winter2022_rss_category VALUES (NULL,'Sport');
 INSERT INTO winter2022_rss_category VALUES (NULL,'Category2');
 INSERT INTO winter2022_rss_category VALUES (NULL,'Category3');
 
@@ -29,9 +29,9 @@ FOREIGN KEY (CategoryID) REFERENCES winter2022_rss_category(CategoryID) ON DELET
 )ENGINE=INNODB;
 
 
-INSERT INTO winter2022_rss_feeds VALUES (NULL,1,'SubCategory1','Google RSS News','https://news.google.com/rss/search?q=Category1+SubCategory1&hl=en-US&gl=US&ceid=US:en',now());
-INSERT INTO winter2022_rss_feeds VALUES (NULL,1,'SubCategory2','Google RSS News','https://news.google.com/rss/search?q=Category1+SubCategory2&hl=en-US&gl=US&ceid=US:en',now());
-INSERT INTO winter2022_rss_feeds VALUES (NULL,1,'SubCategory3','Google RSS News','https://news.google.com/rss/search?q=Category1+SubCategory3&hl=en-US&gl=US&ceid=US:en',now());
+INSERT INTO winter2022_rss_feeds VALUES (NULL,1,'tennis','Google RSS News','https://news.google.com/rss/search?q=Sport+tennis&hl=en-US&gl=US&ceid=US:en',now());
+INSERT INTO winter2022_rss_feeds VALUES (NULL,1,'baseball','Google RSS News','https://news.google.com/rss/search?q=Category1+SubCategory2&hl=en-US&gl=US&ceid=US:en',now());
+INSERT INTO winter2022_rss_feeds VALUES (NULL,1,'football','Google RSS News','https://news.google.com/rss/search?q=Category1+SubCategory3&hl=en-US&gl=US&ceid=US:en',now());
 
 INSERT INTO winter2022_rss_feeds VALUES (NULL,2,'SubCategory1','Google RSS News','https://news.google.com/rss/search?q=Category2+SubCategory1&hl=en-US&gl=US&ceid=US:en',now());
 INSERT INTO winter2022_rss_feeds VALUES (NULL,2,'SubCategory2','Google RSS News','https://news.google.com/rss/search?q=Category2+SubCategory2&hl=en-US&gl=US&ceid=US:en',now());
